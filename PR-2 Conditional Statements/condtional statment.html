@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bill Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+      color: #444;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .btn:hover {
+      background: #43a047;
+    }
+    .results {
+      margin-top: 20px;
+      background: #f9fafb;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+    .results p {
+      margin: 8px 0;
+      font-size: 15px;
+      color: #222;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>💡 Electricity Bill Calculator</h2>
+    <label>Name</label>
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <label>Address</label>
+    <input type="text" id="address" placeholder="Enter your address">
+
+    <label>Current Unit</label>
+    <input type="number" id="current_unit" placeholder="Enter units used">
+
+    <button class="btn" onclick="submitForm()">Calculate Bill</button>
+
+    <div class="results">
+      <p>Name: <span id="bill_name">-</span></p>
+      <p>Address: <span id="bill_address">-</span></p>
+      <p>Rate Per Unit: <span id="fix_unit">-</span></p>
+      <p>Unit Charge: <span id="bill_unit">-</span></p>
+      <p>Tax (%): <span id="tax_percent">-</span></p>
+      <p>Tax Amount: <span id="tax">-</span></p>
+      <p class="highlight">Total Bill: <span id="totalpayment">-</span></p>
+    </div>
+  </div>
+  
+  <script>
+    function submitForm(){
+      var name = document.getElementById('name').value;
+      document.getElementById("bill_name").innerText = name;
+
+      var address = document.getElementById('address').value;
+      document.getElementById("bill_address").innerText = address;
+
+      var current_unit = Number(document.getElementById('current_unit').value);
+      var rate;
+
+      if(current_unit <= 200){
+          rate = 6;   
+      }
+      else if(current_unit <= 500){
+          rate = 8;   
+      }
+      else if(current_unit <= 1000){
+          rate = 10;  
+      }
+      else {
+          rate = 12;  
+      }
+      document.getElementById("fix_unit").innerText = "₹" + rate;
+
+      var unitcharge = current_unit * rate;
+      document.getElementById("bill_unit").innerText = "₹" + unitcharge.toFixed(2);
+
+      var taxPercent;
+      if(unitcharge <= 2000){
+          taxPercent = 5;   
+      }
+      else if(unitcharge <= 5000){
+          taxPercent = 8;   
+      }
+      else if(unitcharge <= 10000){
+          taxPercent = 12;  
+      }
+      else {
+          taxPercent = 15;  
+      }
+      document.getElementById("tax_percent").innerText = taxPercent + "%";
+
+      var tax = unitcharge * (taxPercent / 100); 
+      document.getElementById("tax").innerText = "₹" + tax.toFixed(2);
+      
+      var total = unitcharge + tax;
+      document.getElementById("totalpayment").innerText = "₹" + total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
