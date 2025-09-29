@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salary Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f0f4f7;
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input, select {
+      box-shadow: none !important;
+      outline: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card p-4">
+          <h2 class="text-center mb-4"><b>Salary Calculator</b></h2>
+          <div class="row">
+            <!-- Form col -->
+            <div class="col-md-6">
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label>Age</label>
+                  <input type="number" class="form-control" id="age">
+                </div>
+                <div class="col-6">
+                  <label>Years of Working</label>
+                  <input type="number" class="form-control" id="years">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label>Job</label>
+                <input type="text" class="form-control" id="job">
+              </div>
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label>Hours per Day</label>
+                  <input type="number" class="form-control" id="hours">
+                </div>
+                <div class="col-6">
+                  <label>Workdays per Week</label>
+                  <input type="number" class="form-control" id="days">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label>Net Salary ($)</label>
+                  <input type="number" class="form-control" id="salary">
+                </div>
+                <div class="col-6">
+                  <label>Calculation Type</label>
+                  <select class="form-control" id="calcType">
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-dark w-100" onclick="calculateSalary()">Create Salary Overview</button>
+            </div>
+
+            <div class="col-md-6">
+              <h5 class="mb-3">On your job as <span id="jobName">Software Engineer</span>, this is your salary overview:</h5>
+              <p>Hourly: <span id="hourly">0</span></p>
+              <p>Daily: <span id="daily">0</span></p>
+              <p>Monthly: <span id="monthly">0</span></p>
+              <p>Yearly: <span id="yearly">0</span></p>
+              <hr>
+              <p>For <span id="totalYears">0</span> years working, your total salary is:</p>
+              <h3 class="fw-bold text-success"><span id="totalSalary">0</span></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+function calculateSalary() {
+  var age = Number(document.getElementById("age").value);
+  var years = Number(document.getElementById("years").value);
+  var job = document.getElementById("job").value;
+  var hours = Number(document.getElementById("hours").value);
+  var days = Number(document.getElementById("days").value);
+  var salary = Number(document.getElementById("salary").value);
+  var calcType = document.getElementById("calcType").value;
+
+  let monthly, yearly;
+  if (calcType === "monthly") {
+    monthly = salary;
+    yearly = monthly * 12;
+  } else { 
+    yearly = salary;
+    monthly = yearly / 12;
+  }
+
+  var daily = monthly / 22;   
+  var hourly = daily / hours;   
+
+  document.getElementById('jobName').innerHTML = job;
+  document.getElementById("hourly").innerHTML = hourly.toFixed(2);
+  document.getElementById("daily").innerHTML = daily.toFixed(2);
+  document.getElementById("monthly").innerHTML = monthly.toFixed(2);
+  document.getElementById("yearly").innerHTML = yearly.toFixed(2);
+  document.getElementById("totalYears").innerHTML = years;
+
+  var totalSalary = yearly * years;
+  document.getElementById("totalSalary").innerHTML = totalSalary.toFixed(2);
+}
+
+</script>
+</body>
+</html>
