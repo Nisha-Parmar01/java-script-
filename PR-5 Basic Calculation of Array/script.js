@@ -31,7 +31,6 @@ for (let i = 0; i < cells.length; i++) {
   };
 }
 
-// 🔹 CHECK WIN
 function checkWin(player) {
   for (let i = 0; i < win.length; i++) {
     let count = 0;
@@ -52,7 +51,7 @@ function checkWin(player) {
   return false;
 }
 
-// 🔹 CHECK DRAW
+
 function checkDraw() {
   for (let i = 0; i < cells.length; i++) {
     if (cells[i].innerText == "") {
@@ -62,7 +61,6 @@ function checkDraw() {
   return true;
 }
 
-// 🔹 RESET GAME
 function resetGame() {
   for (let i = 0; i < cells.length; i++) {
     cells[i].innerText = "";
