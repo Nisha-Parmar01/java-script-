@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FetchBazar - Product</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- Header -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a class="logo" href="#">Fetch<span>Bazar</span></a>
+        <div class="icons">
+            <a href="cart.html" class="icon cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="usercart" class="badge">0</span>
+            </a>
+            <a href="loginsystem.html" class="icon">
+                <i class="fa-solid fa-user"></i>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Single Product View -->
+<div class="single-box">
+    <div class="left">
+        <img id="image" src="" alt="Product Image">
+    </div>
+    <div class="right">
+        <h2 id="title"></h2>
+        <div class="price-row">
+            <span class="new-price" id="price"></span>
+            <span class="old-price" id="oldPrice"></span>
+            <span class="discount" id="discount"></span>
+        </div>
+
+        <div class="quantity-box">
+            <label for="qty"><b>Quantity:</b></label>
+            <input type="number" id="qty" value="1" min="1">
+        </div>
+
+        <p class="rating">Rating: <span id="rating"></span></p>
+        <p><b>Category:</b> <span id="category"></span></p>
+        <p class="desc" id="description"></p>
+
+          <button id="addCartBtn" class="add-btn">
+            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+        </button>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <a class="footer-logo" href="#">Fetch<span>Bazar</span></a>
+            <p>Your trusted online store for smart shopping.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cart.html">My Cart</a></li>
+                <li><a href="#">My Account</a></li>
+                <li><a href="#">Orders</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact Us</h4>
+            <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+            <p><i class="fa-solid fa-envelope"></i> support@fetchbazar.com</p>
+        </div>
+        <div class="footer-col">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/js/single.js"></script>
+<script src="assets/js/cart.js"></script>
+</body>
+</html>
