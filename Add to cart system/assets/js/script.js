@@ -7,7 +7,7 @@
         data.map(p => {
             html += `
         <div class="product-card">
-            <a href="singleobject.html" class="product-link" onclick="viewProduct(${p.id})">
+                <a href="#" class="product-link" onclick="viewProduct(${p.id})">
                 <div class="product-img-box">
                     <img src="${p.image}" alt="">
                     <span class="wishlist"><i class="fa-regular fa-heart"></i></span>
@@ -32,10 +32,8 @@
         console.log("somthing rong!"+err);
     })
 
-    function viewProduct(id){
-        localStorage.setItem("pendingCartProduct", JSON.stringify({ id: productId }));
-        window.location='singleobject.html';
-    }
-
-
+  function viewProduct(id){
+    localStorage.setItem("productid", JSON.stringify(id));
+    window.location = 'singleobject.html';
+}
 
