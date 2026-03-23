@@ -1,4 +1,11 @@
-let productid = Number(localStorage.getItem('productid'));
+let productid = JSON.parse(localStorage.getItem('productid'));
+
+if (!productid) {
+  alert("No product selected!");
+  window.location = "index.html";
+}
+
+console.log("Product ID:", productid);
 
 fetch('https://fakestoreapi.com/products/' + productid)
 .then(res => res.json())
@@ -21,7 +28,8 @@ fetch('https://fakestoreapi.com/products/' + productid)
   document.getElementById("description").innerText = singleproduct.description;
 
   document.getElementById("addCartBtn").onclick = () => {
-    addToCart(singleproduct.id);
+    let qty = Number(document.getElementById("qty").value);
+    addToCart(singleproduct.id, qty);
   };
 
 })

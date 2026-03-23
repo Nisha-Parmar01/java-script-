@@ -3,19 +3,19 @@ function addToCart(productId) {
   let token = localStorage.getItem("token");
   let isLoggedIn = localStorage.getItem("isLoggedIn");
 
-  if (!token || isLoggedIn !== "true") {
-    localStorage.setItem("redirectAfterLogin", window.location.href);
-    localStorage.setItem("pendingCartProduct", productId);
-    window.location.href = "loginsystem.html";
-    return;
-  }
-
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
   fetch(`https://fakestoreapi.com/products/${productId}`)
     .then(res => res.json())
     .then(product => {
 
+      if (!token || isLoggedIn !== "true") {
+        localStorage.setItem("redirectAfterLogin", window.location.href);
+        localStorage.setItem("pendingCartProduct", JSON.stringify(product));
+
+        window.location.href = "loginsystem.html";
+        return;
+      }
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
       let exists = cart.find(item => item.id === product.id);
 
       if (exists) {

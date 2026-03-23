@@ -33,7 +33,7 @@
     })
 
     function viewProduct(id){
-        localStorage.setItem('productid',JSON.stringify(id));
+        localStorage.setItem("pendingCartProduct", JSON.stringify({ id: productId }));
         window.location='singleobject.html';
     }
 

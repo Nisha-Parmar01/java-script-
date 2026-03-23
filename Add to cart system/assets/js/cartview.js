@@ -1,46 +1,72 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let cartBody = document.getElementById("cartBody");
-    let grandTotalEl = document.getElementById("grandTotal");
+function renderCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  console.log("Cart Data:", cart);
 
-    cartBody.innerHTML = "";
-    let grandTotal = 0;
+  let cartBody = document.getElementById("cartBody");
+  let grandTotalEl = document.getElementById("grandTotal");
 
-    cart.forEach((item, index) => {
-        let total = item.price * item.qty;
-        grandTotal += total;
+  if (!cartBody || !grandTotalEl) {
+    console.error("Element not found");
+    return;
+  }
 
-        cartBody.innerHTML += `
-            <tr>
-                <td><img src="${item.image}" width="60"></td>
-                <td>${item.title}</td>
-                <td>
-                    <input type="number" min="1" value="${item.qty}" onchange="updateQty(${index}, this.value)">
-                </td>
-                <td>₹${item.price.toFixed(2)}</td>
-                <td>₹${total.toFixed(2)}</td>
-                <td>
-                    <button class="remove-btn" onclick="removeItem(${index})">X</button>
-                </td>
-            </tr>
-        `;
-    });
+  if (cart.length === 0) {
+    cartBody.innerHTML = `<tr><td colspan="6">Cart is empty</td></tr>`;
+    grandTotalEl.innerText = "0";
+    return;
+  }
 
-    grandTotalEl.innerText = grandTotal.toFixed(2);
+  cartBody.innerHTML = "";
+  let grandTotal = 0;
+
+ cart.forEach((item, index) => {
+  let price = item.price || 0;
+  let total = price * item.qty;
+  grandTotal += total;
+
+  cartBody.innerHTML += `
+    <tr>
+      <td><img src="${item.image}" width="60"></td>
+      <td>${item.title}</td>
+      <td>
+        <input type="number" min="1" value="${item.qty}"
+          onchange="updateQty(${index}, this.value)">
+      </td>
+      <td>₹${price.toFixed(2)}</td>
+      <td>₹${total.toFixed(2)}</td>
+      <td>
+        <button onclick="removeItem(${index})">X</button>
+      </td>
+    </tr>
+  `;
 });
 
+  grandTotalEl.innerText = grandTotal.toFixed(2);
+}
 
 function updateQty(index, newQty) {
-    let cart = JSON.parse(localStorage.getItem("cart"));
-    cart[index].qty = Number(newQty);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload(); 
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (newQty < 1) newQty = 1; 
+
+  cart[index].qty = Number(newQty);
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  renderCart();        
+  updateCartCount();   
 }
 
 
 function removeItem(index) {
-    let cart = JSON.parse(localStorage.getItem("cart"));
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload(); 
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  renderCart();       
+  updateCartCount();   
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  renderCart();
+});
